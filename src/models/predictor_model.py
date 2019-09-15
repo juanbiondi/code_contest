@@ -1,14 +1,15 @@
 import pickle
+import os
 
 
 class PredictionModel:
 
-    def __init__(self, model_path: str, external_service):
+    def __init__(self, model_path: str, external_service, s3_service):
+        self.__s3_service = s3_service
         self.__model, self.__transformation = self.__load_model_from_file(model_path)
         self.__external_service = external_service
 
-    @staticmethod
-    def __load_model_from_file(model_path):
+    def __load_model_from_file(self, model_path):
         """This method loads the .mdl file configured on the Settings.
         To load a model that works, the parts have to be:
          - A "model" that have at least one method "predict" that takes a np.array with shape (1, M)
@@ -16,6 +17,9 @@ class PredictionModel:
          - A "transformation" that have at least one method "transform" that takes  a np.array with dimensions
          (1, N) as argument and returns a np.array of shape (1, M).
         """
+        if not os.path.isfile(model_path):
+            self.__s3_service.download_file(model_path)
+
         with open(model_path, 'rb') as f:
             [model, transformation] = pickle.load(f)
 
