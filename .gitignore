@@ -1,0 +1,9 @@
+venv/
+venv2/
+/models/
+__pycache__/
+.idea/
+.env
+*.env
+reports/*
+/locustfile.py
