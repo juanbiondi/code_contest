@@ -3,13 +3,16 @@ import boto3
 
 class S3Service:
 
-    def __init__(self, access_key=None, secret_key=None):
+    def __init__(self, bucket_name, access_key=None, secret_key=None):
         self.bucket_name = self.__generate_bucket_name()
-        self.__client = boto3.client('s3', aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+        if access_key is not None:
+            self.__client = boto3.client('s3', aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+        else:
+            self.__client = boto3.client('s3')
 
-    @staticmethod
-    def __generate_bucket_name() -> str:
-        return "code-contest-prediction-models"
+    def __generate_bucket_names(self) -> str:
+        # Just in case you need some expression to build the buckets name.
+        return self.bucket_name
 
     def download_file(self, local_file_path):
         try:

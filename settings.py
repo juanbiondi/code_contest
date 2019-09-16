@@ -16,4 +16,5 @@ class Settings:
 
     MODEL_PATH = os.environ.get('MODEL_PATH')
     MODEL_URL = os.environ.get('MODEL_URL')
+    BUCKET_NAME = os.environ.get('BUCKET_NAME')
     USE_EXTERNAL = str2bool(os.environ.get('USE_EXTERNAL'))

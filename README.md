@@ -32,7 +32,7 @@ docker run -it --rm \
    -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 ```
 
-With AWS credentials configured the API itself will download a sample model.
+With AWS credentials configured the API itself will download a sample model (even tho is a public bucket the library requires authentication).
 If you dont have configured the keys, just download the model (and configure the .env).  
 
 -----------------

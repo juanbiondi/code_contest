@@ -14,7 +14,8 @@ class ModelContainer(containers.DeclarativeContainer):
 
     externalModelService = providers.Singleton(ExternalPredictService,
                                                url=Settings.MODEL_URL)
-    s3Service = providers.Singleton(S3Service)
+    s3Service = providers.Singleton(S3Service,
+                                    bucket_name=Settings.BUCKET_NAME)
     predictionModel = providers.Singleton(PredictionModel,
                                           model_path=Settings.MODEL_PATH,
                                           external_service=externalModelService,
